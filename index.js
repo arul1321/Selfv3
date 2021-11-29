@@ -24,6 +24,7 @@ const speed = require('performance-now')
 const request = require('request');
 const { spawn, exec, execSync } = require("child_process")
 const fs = require("fs")
+const yts = require( 'yt-search')
 const axios = require("axios")
 const ffmpeg = require('fluent-ffmpeg')
 const { EmojiAPI } = require("emoji-api");
@@ -417,6 +418,10 @@ ${p}*</TAG>*${p}
 ►${p} *${prefix}totag*${p}
 
 ${p}*</DOWNLOAD>*${p}
+►${p} *${prefix}play <query>*${p}
+►${p} *${prefix}ytsearch <query>*${p}
+►${p} *${prefix}ytmp3 <query>*${p}
+►${p} *${prefix}ytmp4 <query>*${p}
 ►${p} *${prefix}igstalk <query>*${p}
 ►${p} *${prefix}ig <link>*${p}
 ►${p} *${prefix}igstory <username>*${p}
