@@ -462,13 +462,6 @@ ${p}*</VOTE>*${p}
 
 ❏ *${p}SELF-BOT BY ARULGANZ${p}* ❏`
         	katalog(menu)
-const btnmenu = {
-imageMessage: jadinya.message.imageMessage,
-contentText: `txt`,
-footerText: `${txt}`,
-headerType: 1
-}
-arul.sendMessage(from, btnmenu, MessageType.buttonsMessage, {contextInfo :{text: 'hi',}})
            	break
     case 'delvote':
             if(!mek.key.remoteJid) return
@@ -996,28 +989,6 @@ ${anime.desc}\n\n*Link Batch* : ${anime.batch}\n*Link Download SD* : ${anime.bat
 			}
 			arul.sendMessage(from, optionshidetag, text)
 			break
-	case 'play':
-			if (args.length === 0) return reply(`Kirim perintah *${prefix}play* _Judul lagu yang akan dicari_`)
-            var srch = args.join('')
-    		aramas = await yts(srch);
-    		aramat = aramas.all 
-   			var mulaikah = aramat[0].url							
-                  try {
-                    yta(mulaikah)
-                    .then((res) => {
-                        const { dl_link, thumb, title, filesizeF, filesize } = res
-                        axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-                        .then(async (a) => {
-                        if (Number(filesize) >= 100000) return sendMediaURL(from, thumb, `*PLAY MUSIC*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${filesizeF}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam mektuk link_`)
-                        const captions = `*PLAY MUSIC*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${filesizeF}\n*Link* : ${a.data}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
-                        sendMediaURL(from, thumb, captions)
-                        await sendMediaURL(from, dl_link).catch(() => reply('error'))
-                        })                
-                        })
-                        } catch (err) {
-                        reply(mess.error.api)
-                        }
-                   break  
         case 'video':
             if (args.length === 0) return reply(`Kirim perintah *${prefix}video* _Judul lagu yang akan dicari_`)
             var srch = args.join('')
@@ -1110,28 +1081,6 @@ ${anime.desc}\n\n*Link Batch* : ${anime.batch}\n*Link Download SD* : ${anime.bat
 			fs.unlinkSync(ran)
 			})
 			break
-	case 'ytsearch':
-			if (args.length < 1) return reply('Tolong masukan query!')
-			var srch = args.join('');
-			try {
-        	var aramas = await yts(srch);
-   			} catch {
-        	return await arul.sendMessage(from, 'Error!', MessageType.text, dload)
-    		}
-    		aramat = aramas.all 
-    		var tbuff = await getBuffer(aramat[0].image)
-    		var ytresult = '';
-    		ytresult += '「 *YOUTUBE SEARCH* 」'
-    		ytresult += '\n________________________\n\n'
-   			aramas.all.map((video) => {
-        	ytresult += '❏ Title: ' + video.title + '\n'
-            ytresult += '❏ Link: ' + video.url + '\n'
-            ytresult += '❏ Durasi: ' + video.timestamp + '\n'
-            ytresult += '❏ Upload: ' + video.ago + '\n________________________\n\n'
-    		});
-    		ytresult += '◩ *SELF-BOT*'
-    		await fakethumb(tbuff,ytresult)
-			break
 	case 'setreply':
 	case 'setfake':
 			if (!q) return fakegroup(mess.wrongFormat)
@@ -1158,27 +1107,6 @@ ${anime.desc}\n\n*Link Batch* : ${anime.batch}\n*Link Download SD* : ${anime.bat
             reply(`Kirim gambar dengan caption ${prefix}sethumb`)
           	}
 			break	
-	case 'ytmp4':
-			if (args.length === 0) return reply(`Kirim perintah *${prefix}ytmp4 [linkYt]*`)
-			let isLinks2 = args[0].match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)
-			if (!isLinks2) return reply(mess.error.Iv)
-				try {
-				reply(mess.wait)
-				ytv(args[0])
-				.then((res) => {
-				const { dl_link, thumb, title, filesizeF, filesize } = res
-				axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-				.then((a) => {
-				if (Number(filesize) >= 40000) return sendMediaURL(from, thumb, `*YTMP 4!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${filesizeF}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam mektuk link_`)
-				const captionsYtmp4 = `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Size* : ${filesizeF}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
-				sendMediaURL(from, thumb, captionsYtmp4)
-				sendMediaURL(from, dl_link).catch(() => reply(mess.error.api))
-				})		
-				})
-				} catch (err) {
-			    reply(mess.error.api)
-				}
-				break
 	case 'emoji':
 			if (!q) return fakegroup('emojinya?')
 			qes = args.join(' ')
@@ -1188,27 +1116,6 @@ ${anime.desc}\n\n*Link Batch* : ${anime.batch}\n*Link Download SD* : ${anime.bat
     		console.log(teks)
    			})
     		break
-	case 'ytmp3':
-			if (args.length === 0) return reply(`Kirim perintah *${prefix}ytmp3 [linkYt]*`)
-			let isLinks = args[0].match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)
-			if (!isLinks) return reply(mess.error.Iv)
-				try {
-				reply(mess.wait)
-				yta(args[0])
-				.then((res) => {
-				const { dl_link, thumb, title, filesizeF, filesize } = res
-				axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-				.then((a) => {
-			    if (Number(filesize) >= 30000) return sendMediaURL(from, thumb, `*Data Berhasil Didapatkan!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${filesizeF}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam mektuk link_`)
-				const captions = `*YTMP3*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${filesizeF}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
-				sendMediaURL(from, thumb, captions)
-				sendMediaURL(from, dl_link).catch(() => reply(mess.error.api))
-				})
-				})
-				} catch (err) {
-				reply(mess.error.api)
-				}
-				break
     case 'image':
             if (args.length < 1) return reply('Masukan teks!')
             const gimg = args.join('');
