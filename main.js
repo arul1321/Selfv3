@@ -15,7 +15,7 @@ nocache('./index.js', module => console.log(`${module} is now updated!`))
 const starts = async (arul = new WAConnection()) => {
     arul.logger.level = 'warn'
     arul.version = [2, 2143, 12];
-    arul.browserDescription = [ 'arulganz', 'Safari', '3.0' ]
+    arul.browserDescription = [ 'arulganz', 'Chrome', '3.0' ]
     console.log(banner.string)
     arul.on('qr', () => {
         console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan bang'))
