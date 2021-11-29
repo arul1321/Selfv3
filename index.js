@@ -264,6 +264,11 @@ module.exports = arul = async (arul, mek) => {
                     fs.unlinkSync(filename)
                 });
             }   
+            
+            const katalog = (teks) => {
+             res = arul.prepareMessageFromContent(from,{ "orderMessage": { "itemCount": 321, "message": teks, "footerText": "*_© ArulGanz_*", "thumbnail": reply, "surface": 'CATALOG' }}, {quoted:mek})
+             arul.relayWAMessage(res)
+        }
 //FUNCTION
             cekafk(afk)
             if (!mek.key.remoteJid.endsWith('@g.us') && offline){
@@ -374,7 +379,6 @@ switch (command) {
     case 'help':
     var p = '```'
     	const menu = `Hai ${pushname}\n *👑 Owner Name : ArulGanz*\n*🤖 Bot Name : ArulBotz*\n*👑 No Owner : +62 812-2985-9085*\n*📨 Email : syahrulrahmadan819@gmail.com*\n*🌐 Browser : Linux*\n*📊 Langauge : Javascript*\n*🐣My Birthday : 15-Oktober-2004*\n
-
 ${p}*</OWNER>*${p}
 ►${p} *${prefix}off*${p}
 ►${p} *${prefix}on*${p}
@@ -457,7 +461,14 @@ ${p}*</VOTE>*${p}
 ►${p} *devote* ${p}
 
 ❏ *${p}SELF-BOT BY ARULGANZ${p}* ❏`
-        	fakestatus(menu)
+        	katalog(menu)
+const btnmenu = {
+imageMessage: jadinya.message.imageMessage,
+contentText: `txt`,
+footerText: `${txt}`,
+headerType: 1
+}
+arul.sendMessage(from, btnmenu, MessageType.buttonsMessage, {contextInfo :{text: 'hi',}})
            	break
     case 'delvote':
             if(!mek.key.remoteJid) return
