@@ -462,7 +462,69 @@ ${p}*</VOTE>*${p}
 
 ❏ *${p}SELF-BOT BY ARULGANZ${p}* ❏`
         	katalog(menu)
-           	break
+           	break       
+                 case 'sendmakebtn':
+                //if (isBanned) return reply(mess.only.benned);
+                           fs.writeFile(`./button/contoh.txt`, `${q}` , (err) => { 
+  if (err) { 
+    grupinv('Error Nih! Lapor ke */owner*')
+  } 
+}); 
+
+            reply('```Sukses Membuat Button!```');
+          break;
+case 'settext':
+fs.writeFile(`./database/list/${sender}.txt`, `${q}`, (err) => { 
+  if (err) { 
+    grupinv('Error Nih! Lapor ke */owner*')
+  } 
+}); 
+                reply(`Pesan berhasil di set!`)
+break;
+case 'resetlist2':
+case 'resetlist':
+fs.writeFile(`./database/list/${sender}.json`, `[]`, (err) => { 
+  if (err) { 
+    grupinv('Error Nih! Lapor ke */owner*')
+  } 
+}); 
+                reply(`List berhasil direset!`)
+break;
+case 'daftarlist':
+case 'makelist':
+  fs.writeFile(`./database/list/${sender}.json`, '[]', (err) => { 
+   if (err) { 
+    console.log(err)
+   } 
+ });
+  fs.writeFile(`./database/list/${sender}.txt`, 'Silahkan ubah tulisan ini di /settext *pesannya*', (err) => { 
+   if (err) { 
+     console.log(err)
+   } 
+ });
+ ls_.push(sender)
+             fs.writeFileSync('./lib/listuser.json', JSON.stringify(ls_))
+             reply(`*Registrasi List Selesai!*`);
+ break;
+ case 'addlist':
+ const adls_ = JSON.parse(fs.readFileSync(`./database/list/${sender}.json`))
+ adls_.push(q)
+             fs.writeFileSync(`./database/list/${sender}.json`, JSON.stringify(adls_))
+             reply(`*List Ditambahkan!*`);
+ break;          
+ case 'mylist':
+ if (!isList) return reply(`Untuk membuat list anda harus register dulu!`)
+ const listdbs = JSON.parse(fs.readFileSync(`./database/list/${sender}.json`))
+ mem = [];
+ const listdbss = fs.readFileSync(`./database/list/${sender}.txt`)
+             const listKako = []
+ for (let mem of listdbs) {
+   listKako.push({ title:`${mem}`, rowid:``})
+ }
+ const sectionsKako = [{title: "Nih Kak Pilih Salah Satu >.<", rows: listKako}]
+ const tombolKako = { buttonText: 'Lihat Semua', description: listdbss, sections: sectionsKako, listType: 1 }
+ arul.sendMessage(from, tombolKako, MessageType.listMessage)
+             break;
     case 'delvote':
             if(!mek.key.remoteJid) return
             if(isVote) return reply('Tidak ada sesi Voting')
@@ -968,7 +1030,6 @@ ${anime.desc}\n\n*Link Batch* : ${anime.batch}\n*Link Download SD* : ${anime.bat
           	if (!mek.key.fromMe) return fakestatus('SELF-BOT')
           	if (banChats === true) return
           	uptime = process.uptime()
-         	 // var taged = ben.message.extendedTextMessage.contextInfo.mentionedJid[0]
          	banChats = true
           	fakestatus(`「 *SELF-MODE* 」`)
           	break
